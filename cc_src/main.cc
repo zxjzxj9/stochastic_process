@@ -9,7 +9,7 @@ using coord = std::pair<float, float>;
 
 struct Circle_r1 {
     static bool isBound(const coord& c) {
-        return c.first*c.first + c.second*c.second > 1.0;
+        return c.first*c.first + c.second*c.second >= 1.00;
     }
 };
 
@@ -61,7 +61,9 @@ public:
     void step() {
         auto self = *this;
         for (int i=0; i<m; i++) {
-            for(int j=0; j <n; j++) {
+            for(int j=0; j<n; j++) {
+                if(i+1>=m || i-1<=0) continue;
+                if(j+1>=n || j-1<=0) continue;
                 if(mask[i*n + j]) {
                     auto dx2 = (self(i+1, j) + self(i-1, j) - 2*self(i, j))/(dx*dx);
                     auto dy2 = (self(i, j+1) + self(i, j-1) - 2*self(i, j))/(dy*dy);
