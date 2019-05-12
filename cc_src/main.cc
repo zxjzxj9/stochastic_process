@@ -1,6 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <utility>
+#include <algorithm>
 
 namespace py = pybind11;
 using range = std::pair<float, float>;
@@ -8,7 +9,7 @@ using coord = std::pair<float, float>;
 
 struct Circle_r1 {
     static bool isBound(const coord& c) {
-        return c.first*c.first + c.second*c.second < 1.0;
+        return c.first*c.first + c.second*c.second > 1.0;
     }
 };
 
@@ -23,11 +24,15 @@ public:
         data = new float[m*n];
         mask = new bool[m*n]; // mask the boundary
 
+        std::fill_n(data, m*n, 0);
         // initialize the boundary
         for (int i=0; i<m; i++) {
             for(int j=0; j <n; j++) {
                 auto c = get_coord(i, j);
-                if(Fp::isBound(c)) mask[i*n+j] = false;
+                if(Fp::isBound(c)) {
+                    mask[i*n+j] = false;
+                    data[i*n+j] = 1.0;
+                }
                 else mask[i*n + j] = true;
             }
         }
