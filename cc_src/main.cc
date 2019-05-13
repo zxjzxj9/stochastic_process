@@ -59,7 +59,7 @@ public:
 
     // step dt for pde \frac{\partial{T}}{\partial{t}} = -0.5*\nebla^2 T
     void step() {
-        auto self = *this;
+        auto& self = *this;
         for (int i=0; i<m; i++) {
             for(int j=0; j<n; j++) {
                 if(i+1>=m || i-1<=0) continue;
