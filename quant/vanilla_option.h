@@ -1,0 +1,14 @@
+//
+// Created by Victor Zhang on 2019/6/7.
+//
+
+#ifndef NUMERICAL_QUANT_PRACTICE_VANILLA_OPTION_H
+#define NUMERICAL_QUANT_PRACTICE_VANILLA_OPTION_H
+
+
+class vanilla_option {
+
+};
+
+
+#endif //NUMERICAL_QUANT_PRACTICE_VANILLA_OPTION_H
