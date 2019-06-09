@@ -5,6 +5,8 @@
 #ifndef NUMERICAL_QUANT_PRACTICE_VANILLA_OPTION_H
 #define NUMERICAL_QUANT_PRACTICE_VANILLA_OPTION_H
 
+#include <cmath>
+
 // Use Black-Scholes model to compute option put/call price
 class vanilla_option {
 public:
@@ -23,14 +25,12 @@ public:
     vanilla_option(){}
 
     // copy constructor
-    vanilla_option& operator=(const vanilla_option& v) {
-        K = v.K;
-        r = v.r;
-        T = v.T;
-        S = v.S;
-        sigma = v.sigma;
-        return *this;
-    }
+    vanilla_option(const vanilla_option v);
+    vanilla_option& operator=(const vanilla_option& v);
+    virtual ~vanilla_option(){}
+
+    double calc_put_price();
+    double calc_call_price();
 
 private:
     double K, r, T, S, sigma;
