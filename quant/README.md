@@ -21,18 +21,18 @@ $$ df(X_t, t) = \frac{\partial f}{\partial t}dt +
 	\sigma_t \frac{\partial f}{\partial x} dW_t $$
 What we want to know the the evolution of target price K as function of S and t, so we have the final formula like follows.
 
-$$ dK = \frac{\partial K}{\partial t} dt + \mu S \frac{\partial K}{\partial S} dt + 
-\frac{1}{2} \sigma^2 S^2 \frac{\partial^2 K}{\partial S^2}dt
-+\sigma S\frac{\partial K}{\partial S}  dW_t
+$$ dV = \frac{\partial V}{\partial t} dt + \mu S \frac{\partial V}{\partial S} dt + 
+\frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}dt
++\sigma S\frac{\partial V}{\partial S}  dW_t
 $$
 
 Then we use delta-hedge portfolio, which can be stated as follows,
 $$
-P = -K + S\frac{\partial K}{\partial S}
+P = -V + S\frac{\partial V}{\partial S}
 $$
 
 $$
-dP = -dK + \frac{\partial K}{\partial S} dS=-\frac{\partial K}{\partial t} dt -\frac{1}{2} \sigma^2 S^2 \frac{\partial^2 K}{\partial S^2}dt
+dP = -dV + \frac{\partial V}{\partial S} dS=-\frac{\partial V}{\partial t} dt -\frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}dt
 $$
 
 Then we suppose the portfolio is risk free, which indicates,
@@ -41,10 +41,21 @@ rPdt = dP
 $$
 So in concusion, we have the following equation
 $$
-r(-K + S\frac{\partial K}{\partial S}) = -\frac{\partial K}{\partial t}  -\frac{1}{2} \sigma^2 S^2 \frac{\partial^2 K}{\partial S^2}
+r(-V + S\frac{\partial V}{\partial S}) = -\frac{\partial V}{\partial t}  -\frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}
 $$
 By rearranging the equation, we obtain the following parabolic PDE,
 $$
-\frac{\partial K}{\partial t}+rS\frac{\partial K}{\partial S}+\frac{1}{2} \sigma^2 S^2 \frac{\partial^2 K}{\partial S^2} -rK = 0
+\frac{\partial V}{\partial t}+rS\frac{\partial V}{\partial S}+\frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} -rV = 0
 $$
 So we can solve the PDE, and finally obtain,
+$$
+V(S,t) = S \cdot erf(d_1) - Ke^{-rT} \cdot erf(d_2) 
+$$
+where 
+$$
+d_1 = \frac{ln(S/K)+(r+\sigma^2/2)T}{\sigma\sqrt{T}}
+$$
+$$
+d_2 = \frac{ln(S/K)+(r-\sigma^2/2)T}{\sigma\sqrt{T}}
+$$
+We have the code in the class vanilla_option.

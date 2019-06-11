@@ -25,7 +25,7 @@ public:
     vanilla_option(){}
 
     // copy constructor
-    vanilla_option(const vanilla_option v);
+    vanilla_option(const vanilla_option& v);
     vanilla_option& operator=(const vanilla_option& v);
     virtual ~vanilla_option(){}
 
