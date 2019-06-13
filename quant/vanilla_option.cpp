@@ -32,5 +32,5 @@ double vanilla_option::calc_put_price() {
     double sigma_sqrt_T = sigma*sqrt(T);
     double d1 = (log(S/K)+(r+0.5*sigma*sigma)*T)/sigma_sqrt_T;
     double d2 = (log(S/K)+(r+0.5*sigma*sigma)*T)/sigma_sqrt_T - sigma_sqrt_T;
-    return K*exp(-r*T)*erf(-d2) -  S*erf(-d1);
+    return K*exp(-r*T)*erf(-d2) - S*erf(-d1);
 }

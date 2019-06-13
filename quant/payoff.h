@@ -5,7 +5,7 @@
 #ifndef NUMERICAL_QUANT_PRACTICE_PAYOFF_H
 #define NUMERICAL_QUANT_PRACTICE_PAYOFF_H
 
-// Bast abstract payoff class
+// Bast abstract payoff class, dummy class
 class payoff {
 
 };
