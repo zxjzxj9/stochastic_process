@@ -59,3 +59,11 @@ $$
 d_2 = \frac{ln(S/K)+(r-\sigma^2/2)T}{\sigma\sqrt{T}}
 $$
 We have the code in the class vanilla_option.
+
+### **2. Monte Carlo Simulation of Vanilla option**
+
+Starting with the above formula, we will start the deriation of Monte Carlo simulation of vanilla option. With the following stochastic process, 
+
+$$\frac{dS}{S} = \mu dt + \sigma dW$$
+
+According to Ito's formula, we can have,
