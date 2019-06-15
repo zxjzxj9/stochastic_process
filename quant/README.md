@@ -66,4 +66,7 @@ Starting with the above formula, we will start the deriation of Monte Carlo simu
 
 $$\frac{dS}{S} = \mu dt + \sigma dW$$
 
-According to Ito's formula, we can have,
+According to Ito's formula, we have the following SDE,
+$$ d \ln S = \left(\mu - \frac{1}{2}\sigma^2\right)S + \sigma dW_t$$
+
+Therefore we can simulate the trajectory of S w.r.t the change of of the time.
