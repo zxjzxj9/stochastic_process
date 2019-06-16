@@ -51,7 +51,7 @@ double vanilla_option::mc_asset(func f) {
     double Sp = S*exp((r-0.5*sigma*sigma)*T);
     double sample_sum = 0.0;
     for(int i=0; i<sample_num; i++) {
-        sample_sum += f(Sp*exp(sigma*T*dist(gen)));
+        sample_sum += f(Sp*exp(dist(gen)));
     }
     sample_sum /= static_cast<double>(sample_num);
     sample_sum *= exp(-r*T);
