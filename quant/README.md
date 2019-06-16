@@ -18,8 +18,8 @@ Let $f(x, t)$ be a function of random variable $X_t$ and t, then we have
 $$ df(X_t, t) = \frac{\partial f}{\partial t}dt + 
 	\mu_t \frac{\partial f}{\partial X_t} dt+ 
 	\frac{\sigma_t^2}{2} \frac{\partial^2 f}{\partial X_t^2}dt +   
-	\sigma_t \frac{\partial f}{\partial x} dW_t $$
-What we want to know the the evolution of target price K as function of S and t, so we have the final formula like follows.
+	\sigma_t \frac{\partial f}{\partial X_t} dW_t $$
+What we want to know the the evolution of target price V as function of S and t, so we have the final formula like follows.
 
 $$ dV = \frac{\partial V}{\partial t} dt + \mu S \frac{\partial V}{\partial S} dt + 
 \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}dt
@@ -64,9 +64,14 @@ We have the code in the class vanilla_option.
 
 Starting with the above formula, we will start the deriation of Monte Carlo simulation of vanilla option. With the following stochastic process, 
 
-$$\frac{dS}{S} = \mu dt + \sigma dW$$
+$$ dS = rSdt + \sigma S dW$$
 
 According to Ito's formula, we have the following SDE,
-$$ d \ln S = \left(\mu - \frac{1}{2}\sigma^2\right)S + \sigma dW_t$$
+$$d \ln S = \frac{1}{S} dS - \frac{1}{2} \sigma^2 dt $$
+$$ d \ln S = \left(r - \frac{1}{2}\sigma^2\right)dt + \sigma dW$$
 
 Therefore we can simulate the trajectory of S w.r.t the change of of the time.
+$$S = S_0e^{\left(r - \frac{1}{2}\sigma^2\right)T + \sigma \sqrt{T} N\left(0, 1\right)}$$
+
+if we need to calculate the call/put payoffs for the S, we just need to average them using MC method, like follows (assume risk neural).
+$$e^{-rT}\mathbf{E}\left(f\left(S_0e^{\left(r - \frac{1}{2}\sigma^2\right)T + \sigma \sqrt{T} N\left(0, 1\right)}\right)\right)$$

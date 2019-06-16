@@ -6,6 +6,9 @@
 #define NUMERICAL_QUANT_PRACTICE_VANILLA_OPTION_H
 
 #include <cmath>
+#include <random>
+#include <algorithm>
+#include <functional>
 
 // Use Black-Scholes model to compute option put/call price
 class vanilla_option {
@@ -31,6 +34,13 @@ public:
 
     double calc_put_price();
     double calc_call_price();
+
+    template <typename func>
+    double mc_asset(func);
+
+    double mc_put_price();
+    double mc_call_price();
+
 
 private:
     double K, r, T, S, sigma;

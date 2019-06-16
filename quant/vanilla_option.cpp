@@ -40,3 +40,28 @@ double vanilla_option::calc_put_price() {
     double d2 = (log(S/K)+(r+0.5*sigma*sigma)*T)/sigma_sqrt_T - sigma_sqrt_T;
     return -S*cdf(-d1) + K*exp(-r*T)*cdf(-d2) ;
 }
+
+template <typename func>
+double vanilla_option::mc_asset(func f) {
+    // Perform Monte Carlo simulation for assets, with function pointer passed
+    const int sample_num = 1000000;
+    std::random_device rd;
+    std::mt19937 gen{rd()};
+    std::normal_distribution<double> dist(0, sigma*sqrt(T));
+    double Sp = S*exp((r-0.5*sigma*sigma)*T);
+    double sample_sum = 0.0;
+    for(int i=0; i<sample_num; i++) {
+        sample_sum += f(Sp*exp(sigma*T*dist(gen)));
+    }
+    sample_sum /= static_cast<double>(sample_num);
+    sample_sum *= exp(-r*T);
+    return sample_sum;
+}
+
+double vanilla_option::mc_call_price() {
+    return mc_asset([this](double x){return std::max(x - K, 0.0);});
+}
+
+double vanilla_option::mc_put_price() {
+    return mc_asset([this](double x){return std::max(K - x, 0.0);});
+}
