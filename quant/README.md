@@ -47,9 +47,13 @@ By rearranging the equation, we obtain the following parabolic PDE,
 $$
 \frac{\partial V}{\partial t}+rS\frac{\partial V}{\partial S}+\frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} -rV = 0
 $$
-So we can solve the PDE, and finally obtain,
+So we can solve the PDE, and finally obtain, where cdf is the cumulative density function of normal distribution, and cdf function has relationship with erf function.
 $$
-V(S,t) = S \cdot erf(d_1) - Ke^{-rT} \cdot erf(d_2) 
+V(S,t) = S \cdot cdf(d_1) - Ke^{-rT} \cdot cdf(d_2) 
+$$
+
+$$
+cdf\left(x\right) = \frac{1}{2}\left(erf(\frac{x}{\sqrt{2}}) + 1\right)
 $$
 where 
 $$
@@ -75,3 +79,17 @@ $$S = S_0e^{\left(r - \frac{1}{2}\sigma^2\right)T + \sigma \sqrt{T} N\left(0, 1\
 
 if we need to calculate the call/put payoffs for the S, we just need to average them using MC method, like follows (assume risk neural).
 $$e^{-rT}\mathbf{E}\left(f\left(S_0e^{\left(r - \frac{1}{2}\sigma^2\right)T + \sigma \sqrt{T} N\left(0, 1\right)}\right)\right)$$
+
+### **3. Methods for the Greeks**
+
+Here we will introduce some greeks (compared to the alpha and beta greeks). The detailed greeks can be listed as follows.
+
+| Name  | Formula | Calls | Puts |
+| :----- | :-------: | :-----: | :----: | 
+| Delta | $\frac{\partial{C}}{\partial{S}}$ | $cdf(d_1)$ | $cdf(d_1) - 1$ |
+| Gamma | $\frac{\partial^2{C}}{\partial{S^2}}$ | $\frac{N(d_1)}{S\sigma\sqrt{T-t}}$ |  $\frac{N(d_1)}{S\sigma\sqrt{T-t}}$ |
+| Vega  | $\frac{\partial{C}}{\partial{\sigma}}$ | $ N(d_1)S\sqrt{T-t} $| $N(d_1)S\sqrt{T-t}$ |
+| Theta | $\frac{\partial{C}}{\partial{t}}$ | $-\frac{S\sigma N(d_1)}{2\sqrt{T-t}} - rKe^{-r(T-t)}N(d_2)$ | $-\frac{S\sigma N(d_1)}{2\sqrt{T-t}} + rKe^{-r(T-t)}N(-d_2)$ |
+| Rho   | $\frac{\partial{C}}{\partial{r}}$ | $K(T-t)e^{-r(T-t)}N(d_2)$ | $-K(T-t)e^{-r(T-t)}N(-d_2)$ |
+
+We will try to implement all these greeks. 
