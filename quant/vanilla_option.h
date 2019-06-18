@@ -22,7 +22,6 @@ public:
      */
     vanilla_option(double K, double r, double T, double S, double sigma)
             : K(K), r(r), T(T), S(S), sigma(sigma) {
-
     }
 
     vanilla_option(){}
