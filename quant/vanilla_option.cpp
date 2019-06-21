@@ -3,6 +3,7 @@
 //
 
 #include "vanilla_option.h"
+#include "utils.h"
 
 vanilla_option& vanilla_option::operator=(const vanilla_option &v) {
     K = v.K;
@@ -21,11 +22,6 @@ vanilla_option::vanilla_option(const vanilla_option& v) {
     sigma = v.sigma;
 }
 
-const double invsqrt2 = 0.70710678118;
-
-inline double cdf(double x) {
-    return 0.5*(erf(invsqrt2*x)+1);
-}
 
 double vanilla_option::calc_call_price() {
     double sigma_sqrt_T = sigma*sqrt(T);
