@@ -5,6 +5,7 @@
 #include "greeks.h"
 #include "utils.h"
 
+// delta sensitivity
 double delta::call_price() {
     double d1 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T));
     return cdf(d1);
@@ -23,6 +24,7 @@ double delta::mc_put_price() {
     return 0;
 }
 
+// gamma sensitivity
 double gamma::call_price() {
     double d1 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T));
     return exp(-r*T)*normal(d1)/(S*sigma*sqrt(T));

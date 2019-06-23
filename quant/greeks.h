@@ -23,6 +23,7 @@ private:
     double K, r, T, S, sigma;
 };
 
+// delta sensitivity
 class delta: public greeks {
 public:
     delta(double K, double r, double T, double S, double sigma)
@@ -37,6 +38,7 @@ private:
     double K, r, T, S, sigma;
 };
 
+// gamma sensitivity
 class gamma: public greeks {
 public:
     gamma(double K, double r, double T, double S, double sigma)
