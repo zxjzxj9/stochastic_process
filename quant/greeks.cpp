@@ -30,7 +30,7 @@ double delta::mc_put_price() {
 }
 
 // gamma sensitivity
-gamma::gamma(double K, double r, double T, double S, double sigma) :
+gamma::gamma(double K, double r, double T, double S, double sigma):
         greeks(K, r, T, S, sigma) {
 }
 
@@ -51,3 +51,9 @@ double gamma::mc_call_price() {
 double gamma::mc_put_price() {
     return 0;
 }
+
+// vega sensitvity
+vega::vega(double K, double r, double T, double S, double sigma):
+        greeks(K, r, T, S, sigma) {
+}
+
