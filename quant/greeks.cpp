@@ -57,3 +57,19 @@ vega::vega(double K, double r, double T, double S, double sigma):
         greeks(K, r, T, S, sigma) {
 }
 
+double vega::call_price() {
+    return 0;
+}
+
+double vega::put_price() {
+    return 0;
+}
+
+double vega::mc_call_price() {
+    return 0;
+}
+
+double vega::mc_put_price() {
+    return 0;
+}
+
