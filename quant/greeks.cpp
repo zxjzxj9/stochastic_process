@@ -58,11 +58,13 @@ vega::vega(double K, double r, double T, double S, double sigma):
 }
 
 double vega::call_price() {
-    return 0;
+    double d1 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T));
+    return S*exp(-r*T)*cdf(d1)*sqrt(T);
 }
 
 double vega::put_price() {
-    return 0;
+    double d2 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T)) - sigma*sqrt(T);
+    return K*exp(-r*T)*cdf(d2)*sqrt(T);
 }
 
 double vega::mc_call_price() {
