@@ -63,3 +63,14 @@ public:
     virtual double mc_put_price();
 
 };
+
+class theta: public greeks {
+public:
+    theta(double K, double r, double T, double S, double sigma);
+
+    virtual double call_price();
+    virtual double put_price();
+    virtual double mc_call_price();
+    virtual double mc_put_price();
+
+};
