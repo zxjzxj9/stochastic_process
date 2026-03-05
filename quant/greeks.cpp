@@ -12,12 +12,12 @@ delta::delta(double K, double r, double T, double S, double sigma) :
 }
 
 double delta::call_price() {
-    double d1 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T));
+    double d1 = (log(S/K) + (r + sigma*sigma/2)*T) / (sigma*sqrt(T));
     return cdf(d1);
 }
 
 double delta::put_price() {
-    double d1 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T));
+    double d1 = (log(S/K) + (r + sigma*sigma/2)*T) / (sigma*sqrt(T));
     return cdf(d1) - 1;
 }
 
@@ -35,13 +35,14 @@ gamma::gamma(double K, double r, double T, double S, double sigma):
 }
 
 double gamma::call_price() {
-    double d1 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T));
-    return exp(-r*T)*normal(d1)/(S*sigma*sqrt(T));
+    double d1 = (log(S/K) + (r + sigma*sigma/2)*T) / (sigma*sqrt(T));
+    return normal(d1) / (S*sigma*sqrt(T));
 }
 
 double gamma::put_price() {
-    double d2 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T)) - sigma*sqrt(T);
-    return -exp(-r*T)*normal(-d2)/(S*sigma*sqrt(T));
+    // gamma is the same for calls and puts
+    double d1 = (log(S/K) + (r + sigma*sigma/2)*T) / (sigma*sqrt(T));
+    return normal(d1) / (S*sigma*sqrt(T));
 }
 
 double gamma::mc_call_price() {
@@ -52,19 +53,20 @@ double gamma::mc_put_price() {
     return 0;
 }
 
-// vega sensitvity
+// vega sensitivity
 vega::vega(double K, double r, double T, double S, double sigma):
         greeks(K, r, T, S, sigma) {
 }
 
 double vega::call_price() {
-    double d1 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T));
-    return S*exp(-r*T)*cdf(d1)*sqrt(T);
+    // vega is the same for calls and puts
+    double d1 = (log(S/K) + (r + sigma*sigma/2)*T) / (sigma*sqrt(T));
+    return S * normal(d1) * sqrt(T);
 }
 
 double vega::put_price() {
-    double d2 = log(S/K) + (r+sigma*sigma/2)*T/(sigma*sqrt(T)) - sigma*sqrt(T);
-    return K*exp(-r*T)*cdf(d2)*sqrt(T);
+    double d1 = (log(S/K) + (r + sigma*sigma/2)*T) / (sigma*sqrt(T));
+    return S * normal(d1) * sqrt(T);
 }
 
 double vega::mc_call_price() {
@@ -75,3 +77,27 @@ double vega::mc_put_price() {
     return 0;
 }
 
+// theta sensitivity
+theta::theta(double K, double r, double T, double S, double sigma):
+        greeks(K, r, T, S, sigma) {
+}
+
+double theta::call_price() {
+    double d1 = (log(S/K) + (r + sigma*sigma/2)*T) / (sigma*sqrt(T));
+    double d2 = d1 - sigma*sqrt(T);
+    return -S*sigma*normal(d1) / (2*sqrt(T)) - r*K*exp(-r*T)*cdf(d2);
+}
+
+double theta::put_price() {
+    double d1 = (log(S/K) + (r + sigma*sigma/2)*T) / (sigma*sqrt(T));
+    double d2 = d1 - sigma*sqrt(T);
+    return -S*sigma*normal(d1) / (2*sqrt(T)) + r*K*exp(-r*T)*cdf(-d2);
+}
+
+double theta::mc_call_price() {
+    return 0;
+}
+
+double theta::mc_put_price() {
+    return 0;
+}

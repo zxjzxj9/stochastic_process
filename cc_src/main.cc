@@ -54,7 +54,7 @@ public:
 
     coord get_coord(int i, int j) {
         if (i>=m || j >= n) throw std::runtime_error("Error: index exceeded...");
-        return {xr.first + (xr.second - xr.first)*i/(m-1), yr.first + (yr.second - yr.first)*i/(m-1)};
+        return {xr.first + (xr.second - xr.first)*i/(m-1), yr.first + (yr.second - yr.first)*j/(n-1)};
     }
 
     // step dt for pde \frac{\partial{T}}{\partial{t}} = -0.5*\nebla^2 T
@@ -62,8 +62,8 @@ public:
         auto& self = *this;
         for (int i=0; i<m; i++) {
             for(int j=0; j<n; j++) {
-                if(i+1>=m || i-1<=0) continue;
-                if(j+1>=n || j-1<=0) continue;
+                if(i+1>=m || i==0) continue;
+                if(j+1>=n || j==0) continue;
                 if(mask[i*n + j]) {
                     auto dx2 = (self(i+1, j) + self(i-1, j) - 2*self(i, j))/(dx*dx);
                     auto dy2 = (self(i, j+1) + self(i, j-1) - 2*self(i, j))/(dy*dy);

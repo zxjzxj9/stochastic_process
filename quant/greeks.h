@@ -33,8 +33,6 @@ public:
     virtual double put_price();
     virtual double mc_call_price();
     virtual double mc_put_price();
-//private:
-//    double K, r, T, S, sigma;
 };
 
 // gamma sensitivity
@@ -46,11 +44,7 @@ public:
     virtual double put_price();
     virtual double mc_call_price();
     virtual double mc_put_price();
-//private:
-//    double K, r, T, S, sigma;
 };
-
-#endif //NUMERICAL_QUANT_PRACTICE_GREEKS_H
 
 // vega sensitivity
 class vega: public greeks {
@@ -61,9 +55,9 @@ public:
     virtual double put_price();
     virtual double mc_call_price();
     virtual double mc_put_price();
-
 };
 
+// theta sensitivity
 class theta: public greeks {
 public:
     theta(double K, double r, double T, double S, double sigma);
@@ -72,5 +66,6 @@ public:
     virtual double put_price();
     virtual double mc_call_price();
     virtual double mc_put_price();
-
 };
+
+#endif //NUMERICAL_QUANT_PRACTICE_GREEKS_H
