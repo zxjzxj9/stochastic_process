@@ -110,3 +110,19 @@ Note:
 - $\Phi(x) = \frac{1}{2}\left(1 + \mathrm{erf}\!\left(\frac{x}{\sqrt{2}}\right)\right)$ is the standard normal CDF.
 
 The implementation is in `greeks.cpp`. Delta, Gamma, Vega, and Theta are currently implemented with analytical formulas. Rho and Monte Carlo-based Greeks are planned for future work.
+
+---
+
+## 4. Implied Volatility
+
+Given an observed market option price $C_{\text{market}}$, the **implied volatility** (IV) is the value of $\sigma$ that satisfies:
+
+$$C_{\text{BS}}(S, K, r, T, \sigma) = C_{\text{market}}$$
+
+We solve this using the **Newton-Raphson** method. Since we already have the Vega ($\partial C / \partial \sigma$), the iteration is:
+
+$$\sigma_{n+1} = \sigma_n - \frac{C_{\text{BS}}(\sigma_n) - C_{\text{market}}}{\text{Vega}(\sigma_n)}$$
+
+This converges quadratically. The same method works for both calls and puts — only the pricing function changes, while Vega is identical for both.
+
+The implementation is in `implied_vol.cpp`.
