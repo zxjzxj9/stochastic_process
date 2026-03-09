@@ -11,6 +11,8 @@ A collection of numerical experiments and implementations related to stochastic 
 | `chapter1.ipynb` | Stochastic integral of deterministic functions w.r.t. Wiener process |
 | `chapter2.ipynb` | Stochastic integral of random-variable functions (Ito calculus) |
 | `chapter3.ipynb` | Connection between stochastic processes and PDEs (Feynman-Kac) |
+| `chapter4.ipynb` | European option pricing via Feynman-Kac Monte Carlo |
+| `chapter5.ipynb` | American option pricing via Longstaff-Schwartz |
 
 ### 1. Heat Equation Simulation (`cc_src/`)
 
