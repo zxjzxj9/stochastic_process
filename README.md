@@ -13,6 +13,8 @@ A collection of numerical experiments and implementations related to stochastic 
 | `chapter3.ipynb` | Connection between stochastic processes and PDEs (Feynman-Kac) |
 | `chapter4.ipynb` | European option pricing via Feynman-Kac Monte Carlo |
 | `chapter5.ipynb` | American option pricing via Longstaff-Schwartz |
+| `chapter6.ipynb` | Path-dependent options (Asian, barrier, lookback) |
+| `chapter7.ipynb` | Jump-diffusion model (Merton) and volatility smile |
 
 ### 1. Heat Equation Simulation (`cc_src/`)
 
